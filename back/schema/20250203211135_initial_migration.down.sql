@@ -1,0 +1,3 @@
+-- *** DOWN ***
+-- file: 1/20250203211135_initial_migration
+-- comment: initial migration
