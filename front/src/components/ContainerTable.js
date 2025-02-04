@@ -10,11 +10,7 @@ const ContainerTable = () => {
       const data = await getContainers();
       setContainers(data);
     };
-  
     fetchData();
-    const interval = setInterval(fetchData, 15000);
-  
-    return () => clearInterval(interval);
   }, []);
 
   const columns = [
