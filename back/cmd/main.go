@@ -45,7 +45,7 @@ func main() {
 }
 
 func initConfig() error {
-	viper.AddConfigPath("./back/configs")
+	viper.AddConfigPath("./configs")
 	viper.SetConfigName("./config")
 	return viper.ReadInConfig()
 }
