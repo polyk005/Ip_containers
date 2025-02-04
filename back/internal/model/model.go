@@ -1,7 +1,8 @@
 package model
 
-type ContainerStatus struct {
-	IPAddress      string `db:"ip_address"`
-	PingTime       int64  `db:"ping_time"`
-	LastSuccessful string `db:"last_successful"`
+type Container struct {
+	ID                 int    `db:"id"`
+	IPAddress          string `db:"ip_address"`
+	PingTime           string `db:"ping_time"`
+	LastSuccessfulPing string `db:"last_successful_ping"`
 }

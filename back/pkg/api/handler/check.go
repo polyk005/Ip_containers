@@ -7,7 +7,7 @@ import (
 )
 
 func (h *Handler) GetContainers(c *gin.Context) {
-	containers, err := h.services.GetContainers()
+	containers, err := h.services.Container.GetContainers()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -26,7 +26,7 @@ func (h *Handler) AddContainer(c *gin.Context) {
 		return
 	}
 
-	err := h.services.AddContainer(input.IPAddress, input.PingTime, input.LastSuccessfulPing)
+	err := h.services.Container.AddContainer(input.IPAddress, input.PingTime, input.LastSuccessfulPing)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
