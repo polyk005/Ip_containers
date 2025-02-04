@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Table } from 'antd';
+import { Table, Button, Spin, message } from 'antd';
 import { getContainers } from '../services/api';
 
 const ContainerTable = () => {
   const [containers, setContainers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
 
-  useEffect(() => {
-    const fetchData = async () => {
+  // Функция для загрузки данных
+  const fetchData = async () => {
+    setLoading(true);
+    try {
       const data = await getContainers();
       setContainers(data);
-    };
+      message.success('Data loaded successfully!');
+    } catch (error) {
+      console.error('Error fetching containers:', error);
+      message.error('Failed to load data.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Загружаем данные при монтировании компонента
+  useEffect(() => {
     fetchData();
   }, []);
 
+  // Колонки для таблицы
   const columns = [
     {
       title: 'IP Address',
@@ -31,13 +46,35 @@ const ContainerTable = () => {
     },
   ];
 
+  const tableStyle = {
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    borderRadius: '8px',
+    overflow: 'hidden',
+  };
+
   return (
+    <div style={containerStyle}>
+    <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Docker Container Monitoring</h1>
+    <Button
+      type="primary"
+      onClick={fetchData}
+      loading={loading}
+      style={{ marginBottom: '20px' }}
+    >
+      Refresh Data
+    </Button>
+    <Spin spinning={loading}>
     <Table
-      dataSource={containers}
-      columns={columns}
-      rowKey="id"
-      pagination={false}
-    />
+  dataSource={containers}
+  columns={columns}
+  rowKey="id"
+  pagination={false}
+  bordered
+  style={tableStyle}
+/>
+    </Spin>
+  </div>
+  
   );
 };
 

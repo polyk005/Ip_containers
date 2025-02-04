@@ -1,13 +1,25 @@
 import React from 'react';
+import { ConfigProvider } from 'antd';
 import ContainerTable from './components/ContainerTable';
 
 const App = () => {
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Docker Container Monitoring</h1>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#1890ff', // Основной цвет (синий)
+        },
+      }}
+    >
       <ContainerTable />
-    </div>
+    </ConfigProvider>
   );
 };
 
 export default App;
+
+const containerStyle = {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '20px',
+  };
